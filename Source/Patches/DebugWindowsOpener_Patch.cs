@@ -30,7 +30,7 @@ namespace HugsLib.Patches {
 			var instructionsArr = instructions.ToArray();
 			var widgetRowField = AccessTools.Field(typeof(DebugWindowsOpener), "widgetRow");
 			foreach (var inst in instructionsArr) {
-				if (!patched && widgetRowField != null && inst.opcode == OpCodes.Bne_Un) {
+				if (!patched && widgetRowField != null && inst.opcode == OpCodes.Bne_Un_S) {
 					yield return new CodeInstruction(OpCodes.Ldarg_0);
 					yield return new CodeInstruction(OpCodes.Ldfld, widgetRowField);
 					yield return new CodeInstruction(OpCodes.Call,
@@ -61,14 +61,15 @@ namespace HugsLib.Patches {
 		[HarmonyTranspiler]
 		public static IEnumerable<CodeInstruction> ExtendButtonsWindow(IEnumerable<CodeInstruction> instructions) {
 			patched = false;
-			foreach (var inst in instructions) {
-				if (!patched && inst.opcode == OpCodes.Ldc_R4 && 28f.Equals(inst.operand)) {
+			foreach (var inst in instructions)
+			{
+				yield return inst;
+				if (!patched && inst.opcode == OpCodes.Ldc_R4 && 25f.Equals(inst.operand)) {
 					// add one to the number of expected buttons
 					yield return new CodeInstruction(OpCodes.Ldc_R4, 1f);
 					yield return new CodeInstruction(OpCodes.Add);
 					patched = true;
 				}
-				yield return inst;
 			}
 		}
 	}

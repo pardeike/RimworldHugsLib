@@ -385,7 +385,7 @@ namespace HugsLib.Settings {
 
 		private static void ShowResetPrompt(string message, IEnumerable<SettingHandle> resetHandles) {
 			var resetHandlesArr = resetHandles.ToArray();
-			Find.WindowStack.Add(new Dialog_Confirm(message, OnConfirmReset, true));
+			Find.WindowStack.Add(new Utils.Dialog_Confirm(message, OnConfirmReset, true));
 
 			void OnConfirmReset() {
 				ResetSettingHandles(resetHandlesArr.ToArray());

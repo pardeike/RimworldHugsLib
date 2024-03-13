@@ -188,7 +188,7 @@ namespace HugsLib.News {
 				if (isOn || HugsLibUtility.ShiftIsHeld) {
 					ToggleIgnoredState();
 				} else {
-					Find.WindowStack.Add(new Dialog_Confirm("HugsLib_features_confirmIgnore".Translate(entry.def.modNameReadable), 
+					Find.WindowStack.Add(new Utils.Dialog_Confirm("HugsLib_features_confirmIgnore".Translate(entry.def.modNameReadable), 
 						ToggleIgnoredState, false,"HugsLib_features_confirmIgnoreTitle".Translate()));
 				}
 			}
